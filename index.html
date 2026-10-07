@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>RNX CODE · RHINOX</title>
+<meta name="theme-color" content="#ffffff">
+<link rel="icon" href="logo-h.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700;800&family=Nanum+Myeongjo:wght@700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --teal:#00babd; --teal-d:#009a9c; --logo:#4aa39d; --mag:#e4007f;
+  --text:#7e7e7e; --strong:#2d2d2d; --link:#555; --border:#deddd8;
+  --bg:#ffffff; --page:#f4f4f4; --soft:#f7f7f7; --dark:#404040;
+  --tb:#2f3134; --tb-edge:#1c1d1f; --tb-line:#474a4e; --tb-ink:#f4f4f2;
+  --tw:#ffffff; --tw-edge:#cfcec8; --tw-line:#e6e5e0; --tw-ink:#2d2d2d;
+  --font-body:'NanumSquare','Nanum Gothic','Malgun Gothic',sans-serif;
+  --font-display:'Nanum Myeongjo',serif;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --text:#a6a6a6; --strong:#ededeb; --link:#c9c9c9; --border:#3b3c3e;
+    --bg:#1f2022; --page:#161718; --soft:#26272a; --dark:#0f1011;
+    --tb:#0e0f10; --tb-edge:#000; --tb-line:#2c2e31; --tb-ink:#f4f4f2;
+    --tw:#f1f0ec; --tw-edge:#a9a8a2; --tw-line:#dcdbd5;
+  }
+}
+:root[data-theme="dark"]{
+  --text:#a6a6a6; --strong:#ededeb; --link:#c9c9c9; --border:#3b3c3e;
+  --bg:#1f2022; --page:#161718; --soft:#26272a; --dark:#0f1011;
+  --tb:#0e0f10; --tb-edge:#000; --tb-line:#2c2e31; --tb-ink:#f4f4f2;
+  --tw:#f1f0ec; --tw-edge:#a9a8a2; --tw-line:#dcdbd5;
+}
+*,*::before,*::after{box-sizing:inherit}
+html{height:100%;scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;word-break:keep-all;min-height:100%;background:var(--page);color:var(--text);font:400 15px/1.7 var(--font-body);-webkit-tap-highlight-color:transparent}
+button{font:inherit;color:inherit;cursor:pointer}
+img{max-width:100%}
+h1,h2,h3{color:var(--strong);font-family:var(--font-display);font-weight:800;margin:0}
+.hidden{display:none!important}
+:focus-visible{outline:2px solid var(--teal);outline-offset:2px}
+
+/* ---------- buttons ---------- */
+.btn{border:1px solid var(--teal);background:var(--teal);color:#fff;border-radius:2px;padding:11px 22px;font-weight:700;font-size:15px;line-height:1.3}
+.btn:hover{background:var(--teal-d);border-color:var(--teal-d)}
+.btn:disabled{background:var(--border);border-color:var(--border);color:var(--text);cursor:not-allowed}
+.btn.line{background:transparent;color:var(--teal)}
+.btn.line:hover{background:var(--teal);color:#fff}
+.btn.quiet{background:transparent;border-color:var(--border);color:var(--link)}
+.btn.quiet:hover{border-color:var(--strong);color:var(--strong)}
+.btn.wide{width:100%}
+.row{display:flex;gap:8px;flex-wrap:wrap}
+
+/* ---------- logo plate ---------- */
+.plate{background:#fff;display:inline-block;line-height:0}
+.plate img{display:block}
+
+/* ---------- title screen ---------- */
+.screen{min-height:100%;display:flex;flex-direction:column}
+#title{background:var(--bg)}
+.title-wrap{flex:1;max-width:560px;width:100%;margin:0 auto;padding:40px 16px 40px}
+.title-logo{text-align:center;margin-bottom:28px}
+.title-logo .plate{padding:10px 18px}
+.title-logo img{width:118px}
+.title-wrap h1{font-size:40px;line-height:1.25;text-align:center}
+.title-wrap .sub{text-align:center;margin:10px 0 0;color:var(--text)}
+.brand-title{letter-spacing:.08em}
+.brand-title::after{content:"";display:block;width:36px;height:2px;background:var(--teal);margin:14px auto 0}
+.kicker{text-align:center;margin:12px 0 0;color:var(--strong);font-weight:700;font-size:14px}
+.demo-rack{display:flex;justify-content:center;gap:6px;margin:32px 0 36px;--w:44px}
+.modes{border-top:1px solid var(--border)}
+.mode{display:flex;align-items:center;gap:16px;width:100%;text-align:left;background:var(--bg);border:1px solid var(--border);border-top:0;padding:18px 18px}
+.mode:hover .mode-t{color:var(--teal)}
+.mode-ic{width:40px;height:40px;flex:none;color:var(--logo)}
+.mode-t{display:block;color:var(--strong);font-weight:800;font-size:17px;line-height:1.35}
+.mode-d{display:block;font-size:13px;line-height:1.5;margin-top:2px}
+.mode .chev{margin-left:auto;color:var(--border);font-size:20px}
+.title-foot{margin-top:20px;display:flex;justify-content:center}
+.foot{background:var(--dark);color:#d9d9d9;font-size:12px;line-height:1.6;padding:18px 16px;text-align:center}
+.foot b{color:#fff}
+
+/* ---------- sub pages ---------- */
+.page-head{background:var(--bg);border-bottom:1px solid var(--border);display:flex;align-items:center;gap:12px;padding:10px 16px;position:sticky;top:env(safe-area-inset-top,0px);z-index:5}
+.page-head .back{border:0;background:none;font-size:22px;line-height:1;padding:6px 8px 6px 0;color:var(--link)}
+.page-head h2{font-size:19px}
+.page-head .plate{margin-left:auto}
+.page-head .plate img{height:26px;width:auto}
+.form{max-width:560px;width:100%;margin:0 auto;padding:24px 16px 40px}
+.field{background:var(--bg);border:1px solid var(--border);padding:16px;margin-bottom:-1px}
+.field > .lab{display:block;color:var(--strong);font-weight:800;font-size:14px;margin-bottom:10px}
+.field .hint{display:block;font-size:12px;line-height:1.5;margin-top:8px}
+.seg{display:flex;border:1px solid var(--border);border-radius:2px;overflow:hidden}
+.seg button{flex:1;border:0;border-left:1px solid var(--border);background:var(--bg);padding:9px 6px;font-weight:700;font-size:14px;color:var(--link)}
+.seg button:first-child{border-left:0}
+.seg button[aria-pressed="true"]{background:var(--teal);color:#fff}
+.inp{width:100%;border:1px solid var(--border);border-radius:2px;background:var(--bg);color:var(--strong);padding:10px 12px;font:inherit}
+.inp:focus{border-color:var(--teal);outline:none}
+.names{display:grid;gap:8px}
+.toggle{display:flex;align-items:flex-start;gap:12px;cursor:pointer}
+.toggle input{appearance:none;flex:none;width:40px;height:22px;border-radius:2px;background:var(--border);position:relative;margin:2px 0 0;cursor:pointer;transition:background .15s}
+.toggle input::after{content:"";position:absolute;top:3px;left:3px;width:16px;height:16px;background:#fff;border-radius:1px;transition:transform .15s}
+.toggle input:checked{background:var(--teal)}
+.toggle input:checked::after{transform:translateX(18px)}
+.toggle b{display:block;color:var(--strong);font-size:14px;line-height:1.4}
+.toggle span{font-size:12px;line-height:1.5}
+.actions{margin-top:24px}
+
+/* online */
+.code-big{font-family:var(--font-display);font-weight:800;font-size:44px;letter-spacing:.12em;color:var(--strong);line-height:1.1}
+.seats{display:grid;gap:0}
+.seat{display:flex;align-items:center;gap:10px;border:1px solid var(--border);margin-top:-1px;padding:10px 12px;background:var(--bg)}
+.seat .no{font-family:var(--font-display);font-weight:800;color:var(--teal);width:18px}
+.seat .nm{color:var(--strong);font-weight:700}
+.seat .tag{font-size:12px;color:var(--text)}
+.seat .x{margin-left:auto;border:0;background:none;color:var(--text);font-size:18px;padding:0 4px}
+.seat .off{font-size:12px;color:var(--mag);font-weight:700}
+.seat.empty .nm{color:var(--text);font-weight:400}
+.notice{border-left:3px solid var(--teal);background:var(--bg);padding:12px 14px;font-size:13px;line-height:1.6;margin-bottom:16px}
+.notice.warn{border-left-color:var(--mag)}
+
+/* ---------- game ---------- */
+#game{min-height:100%;display:flex;flex-direction:column}
+.gbar{background:var(--bg);border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px;padding:8px 12px;position:sticky;top:env(safe-area-inset-top,0px);z-index:6}
+.gbar .plate img{height:26px;width:auto}
+.gbar .turn{font-size:13px;line-height:1.35;min-width:0}
+.gbar .turn b{color:var(--strong);display:block;font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.conn{font-size:12px;font-weight:700;color:var(--mag);white-space:nowrap}
+.gbar .tools{margin-left:auto;display:flex;gap:6px}
+.icon-btn{border:1px solid var(--border);background:var(--bg);border-radius:2px;padding:6px 10px;font-size:13px;font-weight:700;color:var(--link)}
+.icon-btn:hover{border-color:var(--teal);color:var(--teal)}
+.board{flex:1;width:100%;max-width:980px;margin:0 auto;padding:12px 12px 16px;display:flex;flex-direction:column;gap:12px}
+.opps{display:grid;gap:8px}
+.opp{background:var(--bg);border:1px solid var(--border);padding:10px 12px 12px;position:relative}
+.opp.cur::before{content:"";position:absolute;left:-1px;top:-1px;bottom:-1px;width:3px;background:var(--teal)}
+.opp.out{opacity:.55}
+.opp-h{display:flex;align-items:baseline;gap:8px;margin-bottom:8px}
+.opp-h .nm{color:var(--strong);font-weight:800;font-size:14px}
+.opp-h .meta{font-size:12px}
+.opp-h .st{margin-left:auto;font-size:12px;font-weight:700;color:var(--teal)}
+.opp-h .st.out{color:var(--mag)}
+.rack{display:flex;gap:6px;flex-wrap:wrap;align-items:flex-start;--w:36px}
+.me .rack{--w:48px;gap:8px}
+@media (min-width:640px){.rack{--w:42px}.me .rack{--w:56px}}
+
+/* tile: machined block with low-poly back */
+.tile{--h:calc(var(--w)*1.42);width:var(--w);height:var(--h);border-radius:3px;position:relative;display:grid;place-items:center;flex:none;padding:0;border:0;background:none;transform-style:preserve-3d;transition:transform .18s ease}
+.tile .face{position:absolute;inset:0;border-radius:3px;display:grid;place-items:center;font-family:var(--font-display);font-weight:800;font-size:calc(var(--w)*.56);line-height:1}
+.tile.b .face{background:var(--tb);color:var(--tb-ink);box-shadow:inset 0 0 0 1px var(--tb-line),inset 0 -3px 0 var(--tb-edge)}
+.tile.w .face{background:var(--tw);color:var(--tw-ink);box-shadow:inset 0 0 0 1px var(--tw-edge),inset 0 -3px 0 var(--tw-line)}
+.tile.back .face{background-size:100% 100%;background-repeat:no-repeat}
+.tile.b.back .face{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 50 71' preserveAspectRatio='none'%3E%3Cg fill='none' stroke='%23565a5f' stroke-width='.8'%3E%3Cpath d='M0 18 L22 8 L50 20 L30 36 L50 52 L24 62 L0 50 L14 34 Z M22 8 L14 34 L30 36 M14 34 L24 62 M30 36 L24 62 M0 18 L14 34 M50 20 L50 52'/%3E%3C/g%3E%3C/svg%3E")}
+.tile.w.back .face{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 50 71' preserveAspectRatio='none'%3E%3Cg fill='none' stroke='%23d3d2cc' stroke-width='.8'%3E%3Cpath d='M0 18 L22 8 L50 20 L30 36 L50 52 L24 62 L0 50 L14 34 Z M22 8 L14 34 L30 36 M14 34 L24 62 M30 36 L24 62 M0 18 L14 34 M50 20 L50 52'/%3E%3C/g%3E%3C/svg%3E")}
+.tile.up .face::after{content:"";position:absolute;left:18%;right:18%;bottom:6px;height:3px;background:var(--teal)}
+.tile.mine-hidden .face::before{content:"";position:absolute;top:5px;right:5px;width:6px;height:6px;border:1.5px solid currentColor;border-radius:1px;opacity:.45}
+.tile.pick{cursor:pointer}
+.tile.pick:hover{transform:translateY(-3px)}
+.tile.sel{transform:translateY(-7px)}
+.tile.sel .face{outline:2px solid var(--teal);outline-offset:2px}
+.tile.hot .face{outline:2px dashed var(--teal);outline-offset:2px}
+.tile.fresh .face{outline:2px solid var(--logo);outline-offset:2px}
+.tcol{display:flex;flex-direction:column;align-items:center;gap:3px}
+.memo{font-size:10px;line-height:1.2;color:var(--text);max-width:calc(var(--w) + 6px);text-align:center;word-break:break-all;min-height:12px}
+.memo s{text-decoration-color:var(--mag)}
+@keyframes flip{0%{transform:rotateY(90deg)}100%{transform:rotateY(0)}}
+@keyframes shake{0%,100%{transform:translateX(0)}20%{transform:translateX(-5px)}40%{transform:translateX(5px)}60%{transform:translateX(-3px)}80%{transform:translateX(3px)}}
+.tile.anim-flip{animation:flip .45s ease-out}
+.tile.anim-shake{animation:shake .45s ease}
+.demo-rack .tile{animation:flip .5s ease-out both}
+
+.center{background:var(--bg);border:1px solid var(--border);padding:14px;display:grid;grid-template-columns:auto 1fr;gap:14px;align-items:start}
+.pilebox{display:flex;gap:12px;align-items:flex-end}
+.slot{display:flex;flex-direction:column;align-items:center;gap:4px;font-size:11px;line-height:1.3;--w:40px}
+.pile-stack{width:40px;height:57px;position:relative}
+.pile-stack i{position:absolute;inset:0;border-radius:3px;background:var(--soft);box-shadow:inset 0 0 0 1px var(--border)}
+.pile-stack i:nth-child(2){transform:translate(3px,-3px)}
+.pile-stack i:nth-child(3){transform:translate(6px,-6px)}
+.pile-stack b{position:absolute;inset:0;display:grid;place-items:center;transform:translate(6px,-6px);color:var(--strong);font-family:var(--font-display);font-size:18px}
+.slot .empty{width:40px;height:57px;border:1px dashed var(--border);border-radius:3px}
+.status{min-width:0}
+.status .msg{color:var(--strong);font-weight:800;font-size:15px;line-height:1.45}
+.status .sub{font-size:13px;line-height:1.55;margin-top:4px}
+.banner{margin-top:10px;padding:8px 10px;font-size:13px;line-height:1.5;background:var(--soft);border-left:3px solid var(--border)}
+.banner.ok{border-left-color:var(--teal)}
+.banner.no{border-left-color:var(--mag)}
+.banner b{color:var(--strong)}
+
+.pad{grid-column:1 / -1;border-top:1px solid var(--border);padding-top:12px}
+.pad-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:6px}
+.pad-grid button{border:1px solid var(--border);background:var(--bg);border-radius:2px;padding:9px 0;font-family:var(--font-display);font-weight:800;font-size:19px;color:var(--strong);line-height:1.2}
+.pad-grid button:hover{border-color:var(--teal)}
+.pad-grid button.off{color:var(--border);text-decoration:line-through;text-decoration-color:var(--border)}
+.pad-grid button[aria-pressed="true"]{background:var(--teal);border-color:var(--teal);color:#fff}
+.pad-foot{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:10px}
+.pad-foot .info{font-size:12px;line-height:1.45;flex:1 1 100%}
+.pad-foot .btn{flex:1}
+.decide{grid-column:1 / -1;display:grid;grid-template-columns:1fr 1fr;gap:8px;border-top:1px solid var(--border);padding-top:12px}
+
+.me{background:var(--bg);border:1px solid var(--border);padding:12px 12px 14px;position:relative}
+.me.cur::before{content:"";position:absolute;left:-1px;top:-1px;bottom:-1px;width:3px;background:var(--teal)}
+.me-h{display:flex;align-items:baseline;gap:8px;margin-bottom:10px}
+.me-h .nm{color:var(--strong);font-weight:800}
+.me-h .meta{font-size:12px}
+
+.log{background:var(--bg);border:1px solid var(--border)}
+.log summary{padding:10px 12px;font-size:13px;font-weight:700;color:var(--link);cursor:pointer}
+.log ol{margin:0;padding:0 12px 12px 30px;font-size:12px;line-height:1.7}
+
+/* overlays */
+.ov{position:fixed;inset:0;z-index:30;background:rgba(20,21,22,.55);display:flex;align-items:center;justify-content:center;padding:16px;padding-top:calc(16px + env(safe-area-inset-top,0px));padding-bottom:calc(16px + env(safe-area-inset-bottom,0px))}
+.sheet{background:var(--bg);border:1px solid var(--border);width:100%;max-width:440px;max-height:100%;overflow:auto;padding:24px 20px}
+.sheet h3{font-size:24px;line-height:1.3;margin-bottom:6px}
+.sheet .rule{height:2px;width:32px;background:var(--teal);margin:10px 0 14px}
+.sheet p{margin:0 0 12px}
+.pass{background:var(--page)}
+.pass .sheet{text-align:center}
+.pass .sheet .big{font-family:var(--font-display);font-weight:800;color:var(--strong);font-size:30px;line-height:1.3;margin:6px 0 10px}
+.rules{max-width:620px}
+.rules h4{color:var(--strong);font-size:15px;margin:18px 0 6px}
+.rules ol,.rules ul{margin:0;padding-left:20px}
+.rules li{margin:2px 0}
+.rules .flow{background:var(--soft);border:1px solid var(--border);padding:10px 12px;font-size:13px;line-height:1.7}
+.result-list{display:grid;gap:6px;margin:12px 0 18px}
+.result-list div{display:flex;justify-content:space-between;border-bottom:1px solid var(--border);padding:6px 0;font-size:14px}
+.result-list b{color:var(--strong)}
+
+@media (min-width:760px){
+  .board{display:grid;grid-template-columns:1fr 340px;grid-template-areas:"opps center" "me center" "log center";align-items:start}
+  .opps{grid-area:opps}.center{grid-area:center;grid-template-columns:1fr;position:sticky;top:70px}.me{grid-area:me}.log{grid-area:log}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+
+<!-- ============ TITLE ============ -->
+<section id="title" class="screen">
+  <div class="title-wrap">
+    <div class="title-logo"><span class="plate"><img src="logo-v.jpg" alt="RHINOX 리녹스"></span></div>
+    <h1 class="brand-title">RNX CODE</h1>
+    <p class="kicker">다빈치 코드 방식의 숫자 추리 게임</p>
+    <p class="sub">상대의 숨은 숫자를 추리하고, 내 숫자는 끝까지 지키세요.</p>
+    <div class="demo-rack" id="demoRack" aria-hidden="true"></div>
+    <div class="modes">
+      <button class="mode" data-go="solo">
+        <svg class="mode-ic" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 30 L15 10 L22 30 Z M15 10 L20 22"/><rect x="25" y="12" width="9" height="16" rx="1"/><path d="M27 17h5M27 21h5"/></svg>
+        <span><span class="mode-t">혼자 하기</span><span class="mode-d">컴퓨터 1~3명과 대결 · 난이도 선택</span></span><span class="chev">›</span>
+      </button>
+      <button class="mode" data-go="local">
+        <svg class="mode-ic" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="6" y="11" width="10" height="18" rx="1"/><rect x="24" y="11" width="10" height="18" rx="1"/><path d="M17 20h6M20 17l3 3-3 3"/></svg>
+        <span><span class="mode-t">함께 하기</span><span class="mode-d">한 기기를 돌려 가며 2~4명</span></span><span class="chev">›</span>
+      </button>
+      <button class="mode" data-go="online">
+        <svg class="mode-ic" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="20" cy="20" r="3"/><circle cx="9" cy="11" r="3"/><circle cx="31" cy="11" r="3"/><circle cx="20" cy="33" r="3"/><path d="M11.5 13 L17.8 18 M28.5 13 L22.2 18 M20 23 V30"/></svg>
+        <span><span class="mode-t">온라인 대전</span><span class="mode-d">방 코드로 각자의 기기에서 참여</span></span><span class="chev">›</span>
+      </button>
+    </div>
+    <div class="title-foot"><button class="btn quiet" data-rules>게임 방법 보기</button></div>
+  </div>
+  <div class="foot"><b>RHINOX Co., Ltd.</b><br>www.rhinox.kr</div>
+</section>
+
+<!-- ============ SETUP (solo / local) ============ -->
+<section id="setup" class="screen hidden">
+  <div class="page-head"><button class="back" data-home aria-label="처음으로">‹</button><h2 id="setupTitle">혼자 하기</h2><span class="plate"><img src="logo-h.jpg" alt="리녹스"></span></div>
+  <div class="form">
+    <div id="soloFields">
+      <div class="field"><span class="lab">내 이름</span><input class="inp" id="soloName" maxlength="10" value="나"></div>
+      <div class="field"><span class="lab">컴퓨터 수</span><div class="seg" id="comCount"><button aria-pressed="true" data-v="1">1명</button><button aria-pressed="false" data-v="2">2명</button><button aria-pressed="false" data-v="3">3명</button></div></div>
+      <div class="field"><span class="lab">난이도</span><div class="seg" id="comLevel"><button aria-pressed="false" data-v="0">쉬움</button><button aria-pressed="true" data-v="1">보통</button><button aria-pressed="false" data-v="2">어려움</button></div>
+        <span class="hint">어려움은 공개된 타일과 오답 기록을 모두 기억하고 확률이 높을 때만 계속 공격합니다.</span></div>
+    </div>
+    <div id="localFields" class="hidden">
+      <div class="field"><span class="lab">참가 인원</span><div class="seg" id="localCount"><button aria-pressed="true" data-v="2">2명</button><button aria-pressed="false" data-v="3">3명</button><button aria-pressed="false" data-v="4">4명</button></div>
+        <span class="hint">차례가 바뀔 때마다 화면이 가려지고, 기기를 넘겨받은 사람만 자기 타일을 봅니다.</span></div>
+      <div class="field"><span class="lab">이름</span><div class="names" id="localNames"></div></div>
+    </div>
+    <div class="field"><span class="lab">시작 타일 수</span><div class="seg" id="startTiles"><button aria-pressed="true" data-v="auto">자동</button><button aria-pressed="false" data-v="3">3개</button><button aria-pressed="false" data-v="4">4개</button><button aria-pressed="false" data-v="5">5개</button></div>
+      <span class="hint">자동: 2~3명은 4개, 4명은 3개 (공식 규칙)</span></div>
+    <div class="field"><label class="toggle"><input type="checkbox" id="optReveal" checked><span><b>오답이면 뽑은 타일을 공개해서 넣기</b><span>공식 규칙입니다. 끄면 오답이어도 뽑은 타일을 숨긴 채 넣습니다.</span></span></label></div>
+    <div class="field"><label class="toggle"><input type="checkbox" id="optHint" checked><span><b>추리 도우미</b><span>상대 타일을 고르면 논리적으로 가능한 숫자만 진하게 보여 줍니다.</span></span></label></div>
+    <div class="actions"><button class="btn wide" id="startBtn">게임 시작</button></div>
+  </div>
+</section>
+
+<!-- ============ ONLINE ============ -->
+<section id="online" class="screen hidden">
+  <div class="page-head"><button class="back" id="onlineBack" aria-label="처음으로">‹</button><h2>온라인 대전</h2><span class="plate"><img src="logo-h.jpg" alt="리녹스"></span></div>
+  <div class="form">
+    <div id="onUnavail" class="notice warn hidden">파일로 연 화면에서는 온라인 대전을 할 수 없습니다. 서버 주소(예: https://rnx-code.onrender.com)로 접속해 주세요.</div>
+    <div id="onEntry" class="hidden">
+      <div id="resumeBox" class="notice hidden"><span id="resumeText"></span><div class="row" style="margin-top:10px"><button class="btn" id="resumeBtn">돌아가기</button><button class="btn quiet" id="resumeDrop">새로 시작</button></div></div>
+      <div class="field"><span class="lab">내 이름</span><input class="inp" id="onName" maxlength="12" placeholder="이름을 입력하세요" autocomplete="nickname"></div>
+      <div class="field"><span class="lab">새 방 만들기</span><button class="btn wide" id="createRoom">방 만들고 코드 받기</button><span class="hint">게임은 서버에서 진행되어, 누구도 다른 사람의 숨은 숫자를 볼 수 없습니다.</span></div>
+      <div class="field"><span class="lab">방 코드로 참가</span><div class="row"><input class="inp" id="joinCode" inputmode="numeric" maxlength="4" placeholder="4자리 숫자" style="flex:1;min-width:120px"><button class="btn line" id="joinRoom">참가</button></div><span class="hint">초대 링크로 들어오면 코드가 자동으로 채워집니다.</span></div>
+    </div>
+    <div id="onLobby" class="hidden">
+      <div class="field" style="text-align:center"><span class="lab">방 코드</span><div class="code-big" id="lobbyCode">0000</div><span class="hint">이 코드나 초대 링크를 친구에게 보내 주세요.</span><div class="row" style="justify-content:center;margin-top:12px"><button class="btn line" id="shareLink">초대 링크 보내기</button></div><span class="hint" id="shareDone" style="min-height:18px"></span></div>
+      <div class="field"><span class="lab">참가자 <span id="seatCount" style="font-weight:400;color:var(--text)"></span></span><div class="seats" id="seatList"></div>
+        <div id="hostCom" class="row hidden" style="margin-top:10px"><button class="btn quiet" id="addCom">컴퓨터 추가</button><div class="seg" id="netLevel" style="flex:1;min-width:180px"><button aria-pressed="false" data-v="0">쉬움</button><button aria-pressed="true" data-v="1">보통</button><button aria-pressed="false" data-v="2">어려움</button></div></div></div>
+      <div id="hostOpts">
+        <div class="field"><span class="lab">시작 타일 수</span><div class="seg" id="netStart"><button aria-pressed="true" data-v="auto">자동</button><button aria-pressed="false" data-v="3">3개</button><button aria-pressed="false" data-v="4">4개</button><button aria-pressed="false" data-v="5">5개</button></div></div>
+        <div class="field"><label class="toggle"><input type="checkbox" id="netReveal" checked><span><b>오답이면 뽑은 타일을 공개해서 넣기</b><span>공식 규칙</span></span></label></div>
+      </div>
+      <div id="guestOpts" class="field hidden"><span class="lab">규칙</span><span id="guestRule" style="font-size:13px"></span></div>
+      <div class="field"><label class="toggle"><input type="checkbox" id="netHint" checked><span><b>추리 도우미 (내 화면만)</b><span>가능한 숫자만 진하게 표시</span></span></label></div>
+      <div class="actions"><button class="btn wide" id="netStartBtn">게임 시작</button><p id="waitHost" class="hidden" style="text-align:center;margin:12px 0 0">방장이 게임을 시작하기를 기다리고 있습니다.</p><button class="btn quiet wide" id="lobbyLeave" style="margin-top:8px">방 나가기</button></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ GAME ============ -->
+<section id="game" class="hidden">
+  <div class="gbar">
+    <span class="plate"><img src="logo-h.jpg" alt="리녹스"></span>
+    <div class="turn" id="turnInfo"></div>
+    <span class="conn hidden" id="connBadge">연결 끊김</span>
+    <div class="tools"><button class="icon-btn" data-rules>규칙</button><button class="icon-btn" id="quitBtn">나가기</button></div>
+  </div>
+  <div class="board">
+    <div class="opps" id="opps"></div>
+    <div class="center" id="center"></div>
+    <div class="me" id="me"></div>
+    <details class="log"><summary>진행 기록</summary><ol id="logList"></ol></details>
+  </div>
+</section>
+
+<!-- overlays -->
+<div id="passOv" class="ov pass hidden"><div class="sheet"><p id="passPrev" style="font-size:13px"></p><div class="rule" style="margin:10px auto 14px"></div><p>기기를 넘겨주세요</p><div class="big" id="passName"></div><button class="btn wide" id="passBtn">준비됐어요, 내 타일 보기</button></div></div>
+<div id="endOv" class="ov hidden"><div class="sheet"><h3 id="endTitle"></h3><div class="rule"></div><p id="endSub"></p><div class="result-list" id="endList"></div><div class="row"><button class="btn" id="againBtn" style="flex:1">다시 하기</button><button class="btn quiet" id="endHome" style="flex:1">처음으로</button></div><button class="btn quiet wide" id="endView" style="margin-top:8px">판 살펴보기</button></div></div>
+<div id="msgOv" class="ov hidden"><div class="sheet"><h3 id="msgTitle"></h3><div class="rule"></div><p id="msgText"></p><div class="row" id="msgBtns"></div></div></div>
+<div id="rulesOv" class="ov hidden"><div class="sheet rules">
+  <h3>RNX CODE 게임 방법</h3><div class="rule"></div>
+  <p>RNX CODE는 흔히 ‘다빈치 코드’로 알려진 보드게임의 규칙을 따릅니다. 상대가 숨긴 숫자 타일을 모두 맞혀 공개시키고, 내 타일은 끝까지 숨기는 추리 게임입니다. 마지막까지 숨긴 타일이 남은 사람이 이깁니다.</p>
+  <h4>타일과 정렬</h4>
+  <ul><li>검정·흰색 타일이 0부터 11까지 한 장씩, 모두 24장입니다.</li><li>누구나 자기 타일을 작은 수에서 큰 수 순서로 세워 둡니다. 같은 숫자면 검정이 왼쪽입니다.</li><li>숫자는 숨겨도 색과 위치는 모두에게 보입니다. 이것이 추리의 단서입니다.</li></ul>
+  <h4>차례 진행</h4>
+  <ol><li>더미에서 타일을 한 장 뽑습니다. (앱이 자동으로 뽑아 줍니다)</li><li>상대의 숨은 타일 하나를 고르고 숫자를 선언합니다.</li><li>맞히면 그 타일이 공개되고, 계속 추리할지 멈출지 고릅니다. 멈추면 뽑은 타일을 숨긴 채 내 줄에 넣습니다.</li><li>틀리면 뽑은 타일을 공개한 채 내 줄에 넣고 차례가 끝납니다.</li><li>더미가 비었는데 틀리면 내 타일 하나를 직접 골라 공개합니다.</li></ol>
+  <div class="flow" style="margin-top:10px">정렬 → 관찰 → 추리 → 숫자 선언 → 정답이면 계속 또는 멈춤 / 오답이면 내 타일 공개</div>
+  <h4>추리 요령</h4>
+  <ul><li>양옆 타일 사이의 숫자만 가능합니다. 2와 7 사이의 흰 타일은 3~6 중 하나입니다.</li><li>내가 가진 타일과 이미 공개된 타일은 후보에서 뺍니다.</li><li>누군가 틀린 숫자는 타일 아래에 <s style="text-decoration-color:var(--mag)">7</s>처럼 남습니다. 그 숫자는 그 타일이 아닙니다.</li><li>계속 공격할수록 이득이지만, 한 번 틀리면 뽑은 타일이 공개되어 불리해집니다.</li></ul>
+  <h4>표시</h4>
+  <ul><li>아래쪽 청록 선이 있는 타일은 공개된 타일입니다.</li><li>내 타일 오른쪽 위의 작은 네모는 아직 숨겨져 있다는 뜻입니다.</li></ul>
+  <div class="actions"><button class="btn wide" id="rulesClose">닫기</button></div>
+</div></div>
+
+<script src="engine.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

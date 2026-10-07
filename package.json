@@ -1,0 +1,10 @@
+{
+  "name": "rnx-code",
+  "version": "1.0.0",
+  "description": "RNX CODE — 다빈치 코드 방식의 숫자 추리 보드게임 (RHINOX)",
+  "main": "server.js",
+  "scripts": { "start": "node server.js" },
+  "engines": { "node": ">=18" },
+  "license": "UNLICENSED",
+  "private": true
+}
